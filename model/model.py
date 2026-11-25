@@ -12,17 +12,18 @@ class Model:
         Costruisce il grafo (self.G) inserendo tutte le Filiali (i nodi) presenti e filtrando i Collegamenti con
         importo medio per bonifico >= threshold (euro)
         """
+        self.G.clear()
         if self._nodes is None:
             self._nodes = DAO.read_filiali()
-
+        if self._edges is None:
+            self._edges = self.get_all_edges()
         for node in self._nodes.values():
             self.G.add_node(node)
-        self._edges = self.get_all_edges()
         for tupla in self._edges:
             if self._edges[tupla] >= threshold:
                 u = self._nodes[tupla[0]]
                 v = self._nodes[tupla[1]]
-                self.G.add_edge(u, v, peso = round(self._edges[(u.id, v.id)], 2))
+                self.G.add_edge(u, v, peso = self._edges[(u.id, v.id)])
 
     def get_num_edges(self):
         """

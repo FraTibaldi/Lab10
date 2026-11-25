@@ -25,7 +25,7 @@ class Controller:
             count = 0
             for u, v, dati in self._model.G.edges(data=True):
                 count += 1
-                self._view.lista_visualizzazione.controls.append(ft.Text(f"{count}): {u} --> {v} -- importo medio per bonifico: {dati['peso']}"))
+                self._view.lista_visualizzazione.controls.append(ft.Text(f"{count}): {u} --> {v} -- importo medio per bonifico: {dati['peso']:.2f}"))
             self._view.update()
         else:
             self._view.show_alert("Inserire un importo medio valido")
